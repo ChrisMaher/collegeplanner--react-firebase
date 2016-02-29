@@ -20,7 +20,7 @@ var App = React.createClass({
             <div className="col-md-8 col-md-offset-2">
 
                 <h2 className="text-center">Projects</h2>
-                <Header />
+                <Header itemsStore={this.firebaseRefs.items}/>
                 
             </div>
         </div>
