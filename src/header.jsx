@@ -8,7 +8,6 @@ module.exports = React.createClass({
             text: ''
         }
     },
-
     render: function () {
         return (
 
