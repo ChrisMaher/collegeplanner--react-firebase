@@ -2,50 +2,36 @@ var React = require('react');
 var ListItem = require('./list-item');
 
 module.exports = React.createClass({
-    
-    render: function(){
 
-        return(
+    render: function () {
 
-        <div>
+        return (
+            <div>
+                {this.renderList()}
+            </div>
+        )
+    },
+    renderList: function () {
+        if (!this.props.items) {
+            return <h4>
+                No Project yet.
+            </h4>
+        } else {
 
-            {this.renderList()}
-
-        </div>
-
-        )},
-
-    renderList: function(){
-       if(this.props.items && Object.keys(this.props.items).length === 0 ){
-
-         return <h4>
-
-             No Project yet.
-
-         </h4>
-
-       }else{
-
-           var children = [];
-
-           for(var key in this.props.items){
+            var children = [];
+            for (var key in this.props.items) {
                 var item = this.props.items[key];
-               item.key = key;
+                item.key = key;
 
-               children.push(
-
-                   <ListItem
-                       item={this.props.items[key]}
-                       key={key}
-                   >
-                   </ListItem>
-
-               )
-
-           }
-           return children;
-       }
-
+                children.push(
+                    <ListItem
+                        item={this.props.items[key]}
+                        key={key}
+                    >
+                    </ListItem>
+                )
+            }
+            return children;
+        }
     }
-    
 });
