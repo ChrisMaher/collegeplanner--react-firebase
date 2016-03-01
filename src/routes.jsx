@@ -10,37 +10,16 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
-var Routes = require('./routes');
+var Child1 = require('./components/profile.jsx');
+var Child2 = require('./components/videos.jsx');
+var Main = require('./components/main.jsx');
 
-var App = React.createClass({
+module.exports = (
 
-
-    render: function () {
-        return (
-          <div>
-        Header
-          </div>
-            
-        )
-
-    }
-});
-
-var Child1 = React.createClass({
-
-  render: function(){
-     return <h1>Child 1</h1>
-
-  }
-})
-
-var Child2 = React.createClass({
-
-    render: function(){
-        return <h1>Child 2</h1>
-
-    }
-});
-
-
-ReactDOM.render(Routes, document.querySelector('.container'));
+    <Router history={new HashHistory}>
+        <Route path="/" component={Main}>
+            <Route path="profile" component={Child1} />
+            <Route path="videos" component={Child2} />
+        </Route>
+    </Router>
+)
