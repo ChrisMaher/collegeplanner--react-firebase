@@ -5,42 +5,131 @@ module.exports = React.createClass({
     getInitialState: function () {
 
         return {
-            text: ''
+            text: '',
+            subject: '',
+            type: '',
+            worth: 0,
+            notes: ''
         }
     },
     render: function () {
         return (
 
-            <div className="input-group">
+            <div>
 
-                <input
-                    value={this.state.text}
-                    onChange={this.handleInputChange}
-                    type="text" className="form-control"/>
+                <div className="add-project-form">
 
-            <span className="input-group-btn">
+                    <div className="row input-form">
+                        <div className="col-lg-6">
+                            <div class="input-group">
+                                <label class="control-label required" for="project_project_title">Title</label>
+                                <input value={this.state.text} placeholder="Title" onChange={this.handleInputChangeText}
+                                       type="text" className="form-control"/>
+                            </div>
+                        </div>
 
-                <button
-                    onClick={this.handleClick}
-                    className="btn btn-default" type="button">
-                    Add
-                </button>
+                        <div className="col-lg-6">
+                            <div class="input-group">
+                                <label class="control-label required" for="project_project_title">Subject</label>
+                                <input value={this.state.subject} placeholder="Subject"
+                                       onChange={this.handleInputChangeSubject} type="text" className="form-control"/>
+                            </div>
+                        </div>
+                    </div>
 
-            </span>
+                    <div className="row input-form">
+                        <div className="col-lg-4">
+                            <div class="input-group">
+                                <label class="control-label required" for="project_project_title">Type</label>
+                                <input value={this.state.type} placeholder="Type" onChange={this.handleInputChangeType}
+                                       type="text" className="form-control"/>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-4">
+                            <div class="input-group">
+                                <label class="control-label required" for="project_project_title">Worth</label>
+                                <input value={this.state.worth} placeholder="0"
+                                       onChange={this.handleInputChangeWorth} type="number" className="form-control"/>
+                            </div>
+                        </div>
+
+                        <div className="col-lg-4">
+                            <div class="input-group">
+                                <label class="control-label required" for="project_project_title">Due</label>
+                                <input value={this.state.due} placeholder="Date" onChange={this.handleInputChangeType}
+                                       type="text" className="form-control"/>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className="input-group form-textarea">
+
+
+                        <div className="textwrapper">
+
+                    <textarea rows="10"
+                              value={this.state.notes}
+                              placeholder="Notes"
+                              onChange={this.handleInputChangeNotes}
+                              className="form-control">
+                    </textarea>
+
+                        </div>
+                    </div>
+
+                    <div className="row input-form text-center">
+
+                        <button onClick={this.handleClick} className="btn btn-danger save-button" type="button">
+                            Save Entry
+                        </button>
+                    </div>
+                    
+                </div>
             </div>
+
 
         )
     },
     handleClick: function () {
-        console.log(this.state.text);
-        this.props.itemsStore.push({
-            text: this.state.text,
-            done: false
-        });
 
-        this.setState({text:''});
+        if (this.state.text.length > 0) {
+
+            this.props.itemsStore.push({
+
+                text: this.state.text,
+                subject: this.state.subject,
+                type: this.state.type,
+                worth: this.state.worth,
+                notes: this.state.notes,
+                done: false
+
+            });
+
+            this.setState({text: ''});
+            this.setState({subject: ''});
+            this.setState({type: ''});
+            this.setState({worth: ''});
+            this.setState({notes: ''});
+
+        }
+
+
     },
-    handleInputChange: function (event) {
+    handleInputChangeText: function (event) {
         this.setState({text: event.target.value});
+    },
+    handleInputChangeSubject: function (event) {
+        this.setState({subject: event.target.value});
+    },
+    handleInputChangeType: function (event) {
+        this.setState({type: event.target.value});
+    },
+    handleInputChangeWorth: function (event) {
+        this.setState({worth: event.target.value});
+    },
+    handleInputChangeNotes: function (event) {
+        this.setState({notes: event.target.value});
     }
 });

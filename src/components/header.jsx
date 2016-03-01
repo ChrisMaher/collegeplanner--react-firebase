@@ -11,12 +11,14 @@ module.exports = React.createClass({
 
     render: function () {
         return (
+            
             <nav className="navbar navbar-default header">
                 <div className="container-fluid">
                     <Link to="/" className="navbar-brand">
-                        College Planner
+                        CollegePlanner.xyz
                     </Link>
                     <ul className="nav navbar-nav navbar-right">
+                        <li><Link to="projects">Projects</Link></li>
                         <li><Link to="profile">Profile</Link></li>
                         <li><Link to="videos">Videos</Link></li>
                     </ul>

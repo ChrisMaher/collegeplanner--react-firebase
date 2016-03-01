@@ -12,14 +12,16 @@ var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
 var Child1 = require('./components/profile.jsx');
 var Child2 = require('./components/videos.jsx');
+var Projects = require('./components/projects.jsx');
 var Main = require('./components/main.jsx');
 
 module.exports = (
 
     <Router history={new HashHistory}>
         <Route path="/" component={Main}>
+            <Route path="projects" component={Projects} />
             <Route path="profile" component={Child1} />
             <Route path="videos" component={Child2} />
         </Route>
     </Router>
-)
+);

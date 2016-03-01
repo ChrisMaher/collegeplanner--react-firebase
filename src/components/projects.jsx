@@ -5,42 +5,45 @@ var Firebase = require('firebase');
 var rootUrl = 'https://collegeplanner.firebaseio.com/';
 var ListMain = require('./listmain.jsx');
 var Header = require('./header.jsx');
-var Footer = require('./footer1.jsx');
 var List = require('../list.jsx');
 var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
-var Projects = require('./projects.jsx');
-var HomeScreen = require('./homescreen.jsx');
-var firebaseUtils = require('../utils/firebaseUtils');
-
 
 module.exports = React.createClass({
-    
+
+    mixins: [ReactFire],
+    getInitialState: function () {
+
+        return {
+            loaded: false,
+            items: {}
+        }
+    },
+    componentWillMount: function () {
+        this.fb = new Firebase(rootUrl + 'items/');
+        this.bindAsObject(this.fb, 'items');
+        this.fb.on('value', this.handleDataLoaded);
+    },
     render: function () {
         return (
 
-            <div>
-                <Header />
-                {this.content()}
-                <Footer />
+            <div className="row panel panel-default">
+
+                <div className="col-md-12">
+                    <ListMain itemsStore={this.firebaseRefs.items}/>
+                    <hr />
+                    <div className={"content " + (this.state.loaded ? 'loaded' : '')}>
+                        <List items={this.state.items}/>
+                        {this.deleteButton()}
+                    </div>
+                </div>
             </div>
-            
+
         )
 
-    },
-    content: function() {
-        if(this.props.children) {
-            return this.props.children
-        } else {
-            return (
-
-            <HomeScreen />
-
-            )
-        }
     },
     handleDataLoaded: function () {
         this.setState({loaded: true});

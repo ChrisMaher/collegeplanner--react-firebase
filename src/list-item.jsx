@@ -8,6 +8,9 @@ module.exports = React.createClass({
 
         return {
             text: this.props.item.text,
+            subject: this.props.item.subject,
+            worth: this.props.item.worth,
+            type: this.props.item.type,
             done: this.props.item.done,
             textChanged: false
         }
@@ -21,28 +24,41 @@ module.exports = React.createClass({
 
     render: function () {
 
-        return <div className="input-group">
-            <span className="input-group-addon">
-                <input
-                    type="checkbox"
-                    onChange={this.handleChangeDone}
-                    checked={this.state.done}/>
-            </span>
-            <input type="text"
-                   disabled={this.state.done}
-                   className="form-control"
-                   value={this.state.text}
-                   onChange={this.handleTextChange}
-            />
-            <span className="input-group-btn">
-                {this.changesButtons()}
-                <button
-                    className="btn btn-default"
-                    onClick={this.handleDeleteClick}>
-                    Delete
-                </button>
-                </span>
-        </div>
+        return (
+
+            <div>
+
+            <div className="row add-project-form-list">
+
+
+                <div className="col-lg-1">
+                    <img src="https://secure.gravatar.com/avatar/a3804878cac93172fa986c966f31a977" />
+                </div>
+
+                <div className="col-lg-4">
+                    <div className="col-lg-12">
+                        <h3 className="project-list-h3">{this.state.text} ({this.state.worth}%)</h3>
+                    </div><div className="col-lg-12">
+                    <h4 className="project-list-h4">{this.state.subject} ({this.state.type})</h4>
+                </div>
+                </div>
+
+                <div className="col-lg-6">
+                    {this.state.notes}
+                </div>
+
+                <div className="col-lg-1 list-checkbox">
+
+                <input type="checkbox" onChange={this.handleChangeDone} checked={this.state.done} />
+            
+                </div>
+
+
+            </div>
+
+             </div>
+
+        )
 
     },
     changesButtons: function () {
