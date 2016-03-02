@@ -26,21 +26,4 @@ var App = React.createClass({
     }
 });
 
-var Child1 = React.createClass({
-
-  render: function(){
-     return <h1>Child 1</h1>
-
-  }
-})
-
-var Child2 = React.createClass({
-
-    render: function(){
-        return <h1>Child 2</h1>
-
-    }
-});
-
-
 ReactDOM.render(Routes, document.querySelector('.container'));

@@ -1,12 +1,18 @@
 var React = require('react');
 var rootUrl = 'https://collegeplanner.firebaseio.com/';
 var Firebase = require('firebase');
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
+var HashHistory = require('react-router/lib/hashhistory');
 
 module.exports = React.createClass({
 
     getInitialState: function () {
 
         return {
+            key: this.props.item.key,
             text: this.props.item.text,
             subject: this.props.item.subject,
             worth: this.props.item.worth,
@@ -37,7 +43,11 @@ module.exports = React.createClass({
 
                 <div className="col-lg-4">
                     <div className="col-lg-12">
-                        <h3 className="project-list-h3">{this.state.text} ({this.state.worth}%)</h3>
+
+                        <Link to={`/project/${this.props.item.key}`}>
+                             <h3 className="project-list-h3">{this.state.text} ({this.state.worth}%)</h3>
+                         </Link>
+
                     </div><div className="col-lg-12">
                     <h4 className="project-list-h4">{this.state.subject} ({this.state.type})</h4>
                 </div>

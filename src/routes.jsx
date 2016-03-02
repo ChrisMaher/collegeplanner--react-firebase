@@ -10,18 +10,29 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
-var Child1 = require('./components/profile.jsx');
-var Child2 = require('./components/videos.jsx');
-var Projects = require('./components/projects.jsx');
+var Profile = require('./components/profile.jsx');
+var Projects = require('./components/projects/projects.jsx');
+var ProjectsDetails = require('./components/projects/projects-detail.jsx');
 var Main = require('./components/main.jsx');
+
+var Register = require('./components/login-register/Register.js');
+var Login = require("./components/login-register/Login");
+var Logout = require('./components/login-register/Logout');
+var requireAuth = require('./utils/authenticated');
+
+
 
 module.exports = (
 
     <Router history={new HashHistory}>
         <Route path="/" component={Main}>
-            <Route path="projects" component={Projects} />
-            <Route path="profile" component={Child1} />
-            <Route path="videos" component={Child2} />
+            <Route path="projects" component={Projects}/>
+            <Route path="project/:key" component={ProjectsDetails}/>
+            <Route path="profile" component={Profile}   onEnter={requireAuth}  />
+            <Route path="login" component={Login} />
+            <Route path="logout" component={Logout} />
+            <Route path="register" component={Register} />
         </Route>
     </Router>
+
 );

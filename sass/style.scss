@@ -50,16 +50,56 @@
 
 .footer{
 
-  padding: 20px;
   background-color: #464745;
   color: #FFFFFF;
-  height: 280px;
-  margin: 0px auto;
-  margin-top: 10px;
-  margin-bottom: 20px;
+  height: 240px;
+  margin: 10px auto 20px;
   -moz-border-radius: 10px;
   border-radius: 10px;
-  padding-left: 100px
+  padding: 20px 20px 20px 100px;
+
+}
+
+.home-image{
+
+  height: 200px;
+
+}
+
+.home-image > img{
+
+  padding-top: 50px;
+
+}
+
+.home-text{
+
+  padding-top: 50px;
+  height: 100px;
+  padding-right: 100px;
+  padding-left: 100px;
+
+}
+
+.home-buttons{
+
+  padding-top: 50px;
+  height: 100px;
+
+
+}
+
+.panel-default{
+
+  min-height: 500px;
+  margin: 0px;
+  border-radius: 10px;
+
+}
+
+.login-form{
+
+  padding: 60px;
 
 }
 

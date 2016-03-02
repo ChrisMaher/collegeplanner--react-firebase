@@ -12,7 +12,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
-var Projects = require('./projects.jsx');
+var Projects = require('./projects/projects.jsx');
 var HomeScreen = require('./homescreen.jsx');
 var firebaseUtils = require('../utils/firebaseUtils');
 
@@ -20,6 +20,7 @@ var firebaseUtils = require('../utils/firebaseUtils');
 module.exports = React.createClass({
     
     render: function () {
+        
         return (
 
             <div>
