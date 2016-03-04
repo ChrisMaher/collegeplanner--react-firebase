@@ -80,6 +80,10 @@ var firebaseUtils = {
                 this.loginWithPW(user, function(authData){
                     addNewUserToFB({
                         email: user.email,
+                        username: user.username,
+                        location: user.location,
+                        college: user.college,
+                        avatar: user.avatar,
                         uid: authData.uid,
                         token: authData.token
                     });

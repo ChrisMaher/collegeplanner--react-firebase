@@ -12,6 +12,7 @@ var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
 
+
 module.exports = React.createClass({
 
 
@@ -19,22 +20,59 @@ module.exports = React.createClass({
     getInitialState: function () {
 
         return {
+
             loaded: false,
-            items: {}
+            item: {}
         }
     },
 
 
     componentWillMount: function () {
-        this.fb = new Firebase(rootUrl + 'items/' + this.props.params.key);
-        this.bindAsObject(this.fb, 'items');
+
+        var self = this;
+
+        var projectId = this.props.params.key;
+        this.fb = new Firebase(rootUrl + 'items/');
+        var projectRef = this.fb.child(projectId);
+
+        projectRef.child("subject").on("value", function(snapshot) {
+            self.setState({
+                subject: snapshot.val()
+            });
+        });
+        projectRef.child("text").on("value", function(snapshot) {
+            self.setState({
+                text: snapshot.val()
+            });
+        });
+        projectRef.child("type").on("value", function(snapshot) {
+            self.setState({
+                type: snapshot.val()
+            });
+        });
+        projectRef.child("worth").on("value", function(snapshot) {
+            self.setState({
+                worth: snapshot.val()
+            });
+        });
+        projectRef.child("due").on("value", function(snapshot) {
+            self.setState({
+                due: snapshot.val()
+            });
+        });
+        projectRef.child("notes").on("value", function(snapshot) {
+            self.setState({
+                notes: snapshot.val()
+            });
+        });
+
 
     },
 
 
     render: function () {
 
-        console.log(this.props);
+
 
 
         return (
@@ -82,7 +120,7 @@ module.exports = React.createClass({
                             <div className="col-lg-4">
                                 <div class="input-group">
                                     <label class="control-label required" for="project_project_title">Due</label>
-                                    <input value={this.state.due} placeholder="Date" onChange={this.handleInputChangeType}
+                                    <input value={this.state.due} placeholder="Date" onChange={this.handleInputChangeDue}
                                            type="text" className="form-control"/>
                                 </div>
                             </div>
@@ -117,5 +155,23 @@ module.exports = React.createClass({
 
         )
 
+    },
+    handleInputChangeText: function (event) {
+        this.setState({text: event.target.value});
+    },
+    handleInputChangeSubject: function (event) {
+        this.setState({subject: event.target.value});
+    },
+    handleInputChangeType: function (event) {
+        this.setState({type: event.target.value});
+    },
+    handleInputChangeWorth: function (event) {
+        this.setState({worth: event.target.value});
+    },
+    handleInputChangeNotes: function (event) {
+        this.setState({notes: event.target.value});
+    },
+    handleInputChangeDue: function (event) {
+        this.setState({due: event.target.value});
     }
 });

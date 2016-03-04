@@ -25,6 +25,17 @@ module.exports = React.createClass({
 
         this.fb = new Firebase(rootUrl + 'items/' + this.props.item.key);
 
+        var self = this;
+
+        var ref = new Firebase("https://collegeplanner.firebaseio.com");
+        var authData = ref.getAuth();
+
+        if (authData) {
+            self.setState({
+                profileImageURL: authData.password.profileImageURL
+            });
+        }
+
     },
 
 
@@ -38,7 +49,7 @@ module.exports = React.createClass({
 
 
                 <div className="col-lg-1">
-                    <img src="https://secure.gravatar.com/avatar/a3804878cac93172fa986c966f31a977" />
+                    <img className="list-item-image" src={this.state.profileImageURL} />
                 </div>
 
                 <div className="col-lg-4">

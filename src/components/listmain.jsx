@@ -9,15 +9,33 @@ module.exports = React.createClass({
             subject: '',
             type: '',
             worth: 0,
-            notes: ''
+            notes: '',
+            due: ''
         }
+    },
+    componentWillMount: function () {
+
+        var ref = new Firebase("https://collegeplanner.firebaseio.com");
+        var authData = ref.getAuth();
+        // console.log(authData);
+        if (authData) {
+
+            console.log("User " + authData.uid + " is logged in with " + authData.provider);
+
+        } else {
+
+            console.log("User is logged out");
+
+        }
+        
     },
     render: function () {
         return (
 
             <div>
+                
 
-                <div className="add-project-form">
+                <div className="add-project-form ">
 
                     <div className="row input-form">
                         <div className="col-lg-6">
@@ -57,7 +75,7 @@ module.exports = React.createClass({
                         <div className="col-lg-4">
                             <div class="input-group">
                                 <label class="control-label required" for="project_project_title">Due</label>
-                                <input value={this.state.due} placeholder="Date" onChange={this.handleInputChangeType}
+                                <input value={this.state.due} placeholder="Date" onChange={this.handleInputChangeDue}
                                        type="text" className="form-control"/>
                             </div>
                         </div>
@@ -85,7 +103,7 @@ module.exports = React.createClass({
                             Save Entry
                         </button>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -94,26 +112,54 @@ module.exports = React.createClass({
     },
     handleClick: function () {
 
-        if (this.state.text.length > 0) {
+        var ref = new Firebase("https://collegeplanner.firebaseio.com");
+        var authData = ref.getAuth();
+        // console.log(authData);
+        if (authData) {
 
-            this.props.itemsStore.push({
+            if (this.state.text.length > 0) {
 
-                text: this.state.text,
-                subject: this.state.subject,
-                type: this.state.type,
-                worth: this.state.worth,
-                notes: this.state.notes,
-                done: false
+                this.props.itemsStore.push({
 
-            });
+                    text: this.state.text,
+                    subject: this.state.subject,
+                    type: this.state.type,
+                    worth: this.state.worth,
+                    notes: this.state.notes,
+                    done: false,
+                    due: this.state.due,
+                    user: authData.uid
 
-            this.setState({text: ''});
-            this.setState({subject: ''});
-            this.setState({type: ''});
-            this.setState({worth: ''});
-            this.setState({notes: ''});
+                });
+
+                this.setState({text: ''});
+                this.setState({subject: ''});
+                this.setState({type: ''});
+                this.setState({worth: ''});
+                this.setState({due: ''});
+                this.setState({notes: ''});
+
+                alert("Project Added.");
+
+            }else{
+
+                alert("Not enough Data.");
+
+            }
+
+            // console.log("User " + authData.uid + " is logged in with " + authData.provider);
+
+        } else {
+
+            console.log("User is logged out");
 
         }
+
+
+
+
+    },
+    handleHideClick: function () {
 
 
     },
@@ -131,5 +177,8 @@ module.exports = React.createClass({
     },
     handleInputChangeNotes: function (event) {
         this.setState({notes: event.target.value});
+    },
+    handleInputChangeDue: function (event) {
+        this.setState({due: event.target.value});
     }
 });

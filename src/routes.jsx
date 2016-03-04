@@ -26,8 +26,8 @@ module.exports = (
 
     <Router history={new HashHistory}>
         <Route path="/" component={Main}>
-            <Route path="projects" component={Projects}/>
-            <Route path="project/:key" component={ProjectsDetails}/>
+            <Route path="projects" component={Projects}   onEnter={requireAuth}  />
+            <Route path="project/:key" component={ProjectsDetails}    onEnter={requireAuth}  />
             <Route path="profile" component={Profile}   onEnter={requireAuth}  />
             <Route path="login" component={Login} />
             <Route path="logout" component={Logout} />

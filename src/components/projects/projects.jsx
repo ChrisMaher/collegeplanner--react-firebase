@@ -26,15 +26,32 @@ module.exports = React.createClass({
     
     
     componentWillMount: function () {
+
         this.fb = new Firebase(rootUrl + 'items/');
         this.bindAsObject(this.fb, 'items');
         this.fb.on('value', this.handleDataLoaded);
+
+
+        var ref = new Firebase("https://collegeplanner.firebaseio.com");
+        var authData = ref.getAuth();
+        if (authData) {
+
+            // console.log("User " + authData.uid + " is logged in with " + authData.provider);
+
+        } else {
+
+            console.log("User is logged out");
+
+        }
+
+
+
     },
 
 
     render: function () {
 
-        
+
 
         return (
 
