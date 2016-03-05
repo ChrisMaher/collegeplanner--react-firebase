@@ -111,10 +111,14 @@ module.exports = React.createClass({
 
 
     },
+   
+   
     handleSaveClick: function (event) {
         this.fb.update({text: this.state.text});
         this.setState({textChanged : false});
     },
+    
+    
     handleChangeDone: function (event) {
         var update = {done: event.target.checked};
         this.setState(update)

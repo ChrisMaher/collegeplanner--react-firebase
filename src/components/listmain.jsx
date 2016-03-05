@@ -1,4 +1,5 @@
 var React = require('react');
+var ReactQuill = require('react-quill');
 
 module.exports = React.createClass({
 
@@ -10,10 +11,15 @@ module.exports = React.createClass({
             type: '',
             worth: 0,
             notes: '',
-            due: ''
+            due: '',
+            college: '',
+            value: '',
+            events: []
         }
     },
     componentWillMount: function () {
+
+        var self = this;
 
         var ref = new Firebase("https://collegeplanner.firebaseio.com");
         var authData = ref.getAuth();
@@ -22,15 +28,22 @@ module.exports = React.createClass({
 
             console.log("User " + authData.uid + " is logged in with " + authData.provider);
 
-        } else {
-
-            console.log("User is logged out");
-
         }
+        var user = new Firebase('https://collegeplanner.firebaseio.com/' + 'user/'+authData.uid);
+        user.child("college").on("value", function(snapshot) {
+
+            self.setState({
+                college: snapshot.val()
+            });
+
+        });
         
     },
     render: function () {
+
         return (
+
+
 
             <div>
                 
@@ -87,15 +100,17 @@ module.exports = React.createClass({
 
                         <div className="textwrapper">
 
-                    <textarea rows="10"
-                              value={this.state.notes}
-                              placeholder="Notes"
-                              onChange={this.handleInputChangeNotes}
-                              className="form-control">
-                    </textarea>
+                            <ReactQuill value={this.state.notes}
+                                        onChange={this.onEditorChange}
+                                        onChangeSelection={this.onEditorChangeSelection}
+                                       />
+
 
                         </div>
                     </div>
+
+
+
 
                     <div className="row input-form text-center">
 
@@ -128,6 +143,7 @@ module.exports = React.createClass({
                     notes: this.state.notes,
                     done: false,
                     due: this.state.due,
+                    college: this.state.college,
                     user: authData.uid
 
                 });
@@ -139,7 +155,8 @@ module.exports = React.createClass({
                 this.setState({due: ''});
                 this.setState({notes: ''});
 
-                alert("Project Added.");
+
+                location.reload();
 
             }else{
 
@@ -176,9 +193,37 @@ module.exports = React.createClass({
         this.setState({worth: event.target.value});
     },
     handleInputChangeNotes: function (event) {
-        this.setState({notes: event.target.value});
+        var notesIn = event.target.value;
+        this.setState({ notes:notesIn });
     },
     handleInputChangeDue: function (event) {
         this.setState({due: event.target.value});
+    },
+    onEditorChange: function(value, delta, source) {
+        this.setState({
+            notes: value,
+            events: [
+                'text-change('+this.state.notes+' -> '+value+')'
+            ].concat(this.state.events)
+        });
+    },
+    onEditorChangeSelection: function(range, source) {
+        this.setState({
+            selection: range,
+            events: [
+                'selection-change('+
+                this.formatRange(this.state.selection)
+                +' -> '+
+                this.formatRange(range)
+                +')'
+            ].concat(this.state.events)
+        });
+    },
+
+    formatRange: function(range) {
+        return range
+            ? [range.start, range.end].join(',')
+            : 'none';
     }
+
 });

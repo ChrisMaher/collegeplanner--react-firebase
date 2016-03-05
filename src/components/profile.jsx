@@ -43,9 +43,7 @@ module.exports = React.createClass({
             });
         }
 
-        this.fb = new Firebase(rootUrl + 'items/');
-        this.bindAsObject(this.fb, 'items');
-        this.fb.on('value', this.handleDataLoaded);
+
 
         var user = new Firebase(rootUrl + 'user/'+authData.uid);
         user.child("college").on("value", function(snapshot) {
@@ -64,6 +62,17 @@ module.exports = React.createClass({
             });
         });
 
+
+
+        setTimeout(() => {
+
+            this.fb = new Firebase(rootUrl + 'items/');
+            this.bindAsObject(this.fb.orderByChild("user").equalTo(authData.uid), 'items');
+            this.fb.on('value', this.handleDataLoaded);
+
+        }, 3000);
+
+
     },
 
 
@@ -72,7 +81,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div className="row panel panel-default">
+            <div className="row panel panel-default-profile">
 
                 <div className="col-md-12">
 
@@ -120,6 +129,16 @@ module.exports = React.createClass({
                                                    onChange={this.handleInputChangeCollege} type="text" className="form-control"/>
                                         </div>
                                     </div>
+                                </div>
+
+                                <div className="row input-form center-text center-block">
+
+                                    <div className="row">
+                                        <button onClick={this.handleSaveClickUpdate} className="btn btn-danger update-profile-button text-center" type="button">
+                                            Update Profile
+                                        </button>
+                                    </div>
+
                                 </div>
 
 
@@ -182,5 +201,26 @@ module.exports = React.createClass({
     },
     handleInputChangeCollege: function (event) {
         this.setState({college: event.target.value});
+    },
+    handleSaveClickUpdate: function (event) {
+
+        var ref = new Firebase("https://collegeplanner.firebaseio.com");
+        var authData = ref.getAuth();
+        var user = new Firebase(rootUrl + 'user/'+authData.uid);
+
+        user.update(
+
+            {
+                email: this.state.email,
+                username: this.state.username,
+                location: this.state.location,
+                college: this.state.college
+            }
+
+        );
+
+        alert("Profile Updated.");
+        window.location = '/#/profile';
+
     }
 });

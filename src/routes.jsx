@@ -12,6 +12,8 @@ var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
 var Profile = require('./components/profile.jsx');
 var Projects = require('./components/projects/projects.jsx');
+var Group = require('./components/group/group.jsx');
+var GroupDetails = require('./components/group/group-detail.jsx');
 var ProjectsDetails = require('./components/projects/projects-detail.jsx');
 var Main = require('./components/main.jsx');
 
@@ -20,19 +22,17 @@ var Login = require("./components/login-register/Login");
 var Logout = require('./components/login-register/Logout');
 var requireAuth = require('./utils/authenticated');
 
-
-
 module.exports = (
-
     <Router history={new HashHistory}>
         <Route path="/" component={Main}>
             <Route path="projects" component={Projects}   onEnter={requireAuth}  />
             <Route path="project/:key" component={ProjectsDetails}    onEnter={requireAuth}  />
+            <Route path="group" component={Group}   onEnter={requireAuth}  />
+            <Route path="group/:key" component={GroupDetails}    onEnter={requireAuth}  />
             <Route path="profile" component={Profile}   onEnter={requireAuth}  />
             <Route path="login" component={Login} />
             <Route path="logout" component={Logout} />
             <Route path="register" component={Register} />
         </Route>
     </Router>
-
 );

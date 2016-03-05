@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactQuill = require('react-quill');
 var ReactDOM = require('react-dom');
 var ReactFire = require('reactfire');
 var Firebase = require('firebase');
@@ -20,7 +19,7 @@ module.exports = React.createClass({
     getInitialState: function () {
 
         return {
-            loaded: true,
+            loaded: false,
             items: {}
         }
     },
@@ -28,32 +27,25 @@ module.exports = React.createClass({
     
     componentWillMount: function () {
 
-        // var id = '';
-
-        var self = this;
-
         var ref = new Firebase("https://collegeplanner.firebaseio.com");
         var authData = ref.getAuth();
         // console.log(authData);
-        if (authData) {
-            // console.log("User " + authData.uid + " is logged in with " + authData.provider);
-        }
 
-        // Filter items and return key where user == logged in user
-        var ref1 = new Firebase("https://collegeplanner.firebaseio.com/items/");
+        var college = '';
 
-        // ref1.orderByChild("user").equalTo(authData.uid).on("child_added", function(snapshot) {
-        //     id = (snapshot.key());
-        //
-        //     // Get item by ID
-        //     // Create an array of items
-        //
-        // });
+        var user = new Firebase(rootUrl + 'user/'+authData.uid);
+        user.child("college").on("value", function(snapshot) {
+            college =  snapshot.val();
+        });
 
-        this.fb = new Firebase(rootUrl + 'items/');
-        this.bindAsObject(this.fb.orderByChild("user").equalTo(authData.uid), 'items');
-        this.fb.on('value', this.handleDataLoaded);
 
+        setTimeout(() => {
+
+            this.fb = new Firebase(rootUrl + 'items/');
+            this.bindAsObject(this.fb.orderByChild("college").equalTo(college), 'items');
+            this.fb.on('value', this.handleDataLoaded);
+
+        }, 3000);
 
 
 
@@ -85,6 +77,7 @@ module.exports = React.createClass({
     },
     handleDataLoaded: function () {
         this.setState({loaded: true});
+
     },
     deleteButton: function () {
         if (!this.state.loaded) {

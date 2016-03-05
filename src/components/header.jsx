@@ -22,7 +22,7 @@ module.exports = React.createClass({
         firebaseUtils.onChange = this.handleLogout;
     },
     render: function () {
-        var videosPage;
+        var groupPage;
         var projectsPage;
         var profilePage;
         var loginOrOut;
@@ -30,6 +30,7 @@ module.exports = React.createClass({
         if(this.state.loggedIn){
 
             projectsPage = <li><Link to="/projects" >Projects</Link></li>;
+            groupPage = <li><Link to="/group" >Group</Link></li>;
             profilePage = <li><Link to="/profile" >Profile</Link></li>;
             loginOrOut = <li><Link to="/logout" >Logout</Link></li>;
             register = null
@@ -47,6 +48,7 @@ module.exports = React.createClass({
                     <ul className="nav navbar-nav navbar-right">
                         <li><Link to="/" > Home </Link></li>
                         {projectsPage}
+                        {groupPage}
                         {profilePage}
                         {register}
                         {loginOrOut}

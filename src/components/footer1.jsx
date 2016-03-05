@@ -1,6 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactRouter = require('react-router');
+var ReactFire = require('reactfire');
+var Firebase = require('firebase');
+var rootUrl = 'https://collegeplanner.firebaseio.com/';
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
@@ -12,6 +15,24 @@ var ButtonToolbar = require('react-bootstrap').ButtonToolbar;
 
 
 module.exports = React.createClass({
+
+    mixins: [ReactFire],
+    getInitialState: function () {
+
+        return {
+            loaded: false,
+            items: {}
+        }
+    },
+
+    componentWillMount: function () {
+
+
+        this.fb = new Firebase(rootUrl + 'items/');
+        this.bindAsObject(this.fb, 'items');
+
+    },
+
 
     render: function () {
         return (

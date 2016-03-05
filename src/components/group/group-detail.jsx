@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var ReactQuill = require('react-quill');
 var ReactFire = require('reactfire');
 var Firebase = require('firebase');
 var rootUrl = 'https://collegeplanner.firebaseio.com/';
@@ -22,14 +21,6 @@ module.exports = React.createClass({
 
         return {
 
-            text: '',
-            subject: '',
-            type: '',
-            worth: 0,
-            notes: '',
-            due: '',
-            content: 'initial content',
-            college: '',
             loaded: false,
             item: {}
         }
@@ -39,9 +30,6 @@ module.exports = React.createClass({
     componentWillMount: function () {
 
         var self = this;
-
-        var ref = new Firebase("https://collegeplanner.firebaseio.com");
-        var authData = ref.getAuth();
 
         var projectId = this.props.params.key;
         this.fb = new Firebase(rootUrl + 'items/');
@@ -75,11 +63,6 @@ module.exports = React.createClass({
         projectRef.child("notes").on("value", function(snapshot) {
             self.setState({
                 notes: snapshot.val()
-            });
-        });
-        projectRef.child("college").on("value", function(snapshot) {
-            self.setState({
-                college: snapshot.val()
             });
         });
 
@@ -149,19 +132,20 @@ module.exports = React.createClass({
 
                             <div className="textwrapper">
 
-                                <ReactQuill value={this.state.notes}
-                                            onChange={this.onEditorChange}
-                                            onChangeSelection={this.onEditorChangeSelection} />
-
+                    <textarea rows="10"
+                              value={this.state.notes}
+                              placeholder="Notes"
+                              onChange={this.handleInputChangeNotes}
+                              className="form-control">
+                    </textarea>
 
                             </div>
-
                         </div>
 
                         <div className="row input-form text-center">
 
-                            <button onClick={this.handleSaveClick} className="btn btn-danger save-button" type="button">
-                                Update Entry
+                            <button onClick={this.handleClick} className="btn btn-danger save-button" type="button">
+                                Save Entry
                             </button>
                         </div>
 
@@ -189,62 +173,5 @@ module.exports = React.createClass({
     },
     handleInputChangeDue: function (event) {
         this.setState({due: event.target.value});
-    },
-    handleSaveClick: function (event) {
-
-        this.fb1 = new Firebase(rootUrl + 'items/' + this.props.params.key);
-
-        var ref = new Firebase("https://collegeplanner.firebaseio.com");
-        var authData = ref.getAuth();
-
-        this.fb1.update(
-
-
-            {
-                text: this.state.text,
-                subject: this.state.subject,
-                type: this.state.type,
-                worth: this.state.worth,
-                notes: this.state.notes,
-                done: false,
-                due: this.state.due,
-                college: this.state.college,
-                user: authData.uid
-            }
-
-
-
-
-        );
-
-        window.location = '/#/projects';
-
-    },
-    onEditorChange: function(value, delta, source) {
-        this.setState({
-            notes: value,
-            events: [
-                'text-change('+this.state.notes+' -> '+value+')'
-            ].concat(this.state.events)
-        });
-    },
-    onEditorChangeSelection: function(range, source) {
-        this.setState({
-            selection: range,
-            events: [
-                'selection-change('+
-                this.formatRange(this.state.selection)
-                +' -> '+
-                this.formatRange(range)
-                +')'
-            ].concat(this.state.events)
-        });
-    },
-
-    formatRange: function(range) {
-        return range
-            ? [range.start, range.end].join(',')
-            : 'none';
     }
-    
 });
