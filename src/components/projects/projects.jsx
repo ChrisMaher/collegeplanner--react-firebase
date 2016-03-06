@@ -21,7 +21,8 @@ module.exports = React.createClass({
 
         return {
             loaded: true,
-            items: {}
+            items: {},
+            college : {}
         }
     },
     
@@ -54,10 +55,9 @@ module.exports = React.createClass({
         this.bindAsObject(this.fb.orderByChild("user").equalTo(authData.uid), 'items');
         this.fb.on('value', this.handleDataLoaded);
 
-
-
-
-
+        this.fb1 = new Firebase(rootUrl + 'colleges/');
+        this.bindAsObject(this.fb1.orderByChild("user"), 'college');
+        this.fb1.on('value', this.handleDataLoaded);
 
     },
 
@@ -71,7 +71,7 @@ module.exports = React.createClass({
             <div className="row panel panel-default">
 
                 <div className="col-md-12">
-                    <ListMain itemsStore={this.firebaseRefs.items}/>
+                    <ListMain itemsStore={this.firebaseRefs.items} itemsStore2={this.firebaseRefs.college}/>
                     <hr />
                     <div className={"content " + (this.state.loaded ? 'loaded' : '')}>
                         <List items={this.state.items}/>

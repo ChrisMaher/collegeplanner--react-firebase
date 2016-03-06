@@ -148,6 +148,14 @@ module.exports = React.createClass({
 
                 });
 
+                this.props.itemsStore2.push({
+
+
+                    college: this.state.college,
+                    user: authData.uid
+
+                });
+
                 this.setState({text: ''});
                 this.setState({subject: ''});
                 this.setState({type: ''});
@@ -166,15 +174,7 @@ module.exports = React.createClass({
 
             // console.log("User " + authData.uid + " is logged in with " + authData.provider);
 
-        } else {
-
-            console.log("User is logged out");
-
         }
-
-
-
-
     },
     handleHideClick: function () {
 

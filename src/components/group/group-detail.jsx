@@ -12,9 +12,7 @@ var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var HashHistory = require('react-router/lib/hashhistory');
 
-
 module.exports = React.createClass({
-
 
     mixins: [ReactFire],
     getInitialState: function () {

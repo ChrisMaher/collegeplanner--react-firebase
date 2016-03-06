@@ -46,17 +46,10 @@ module.exports = React.createClass({
             this.fb.on('value', this.handleDataLoaded);
 
         }, 3000);
-
-
-
-
-
+        
     },
 
-
     render: function () {
-
-
 
         return (
 
