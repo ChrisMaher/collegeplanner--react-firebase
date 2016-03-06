@@ -1,0 +1,168 @@
+.html, body {
+  background-color: #F7F7F7; }
+
+.content {
+  opacity: 0;
+  transition: opacity 1s ease-in; }
+
+.loaded {
+  opacity: 1; }
+
+.input-group {
+  margin-bottom: 15px; }
+
+.clear-complete {
+  margin-bottom: 15px; }
+
+.navbar-default {
+  width: 100%;
+  background-color: #26AE90;
+  min-height: 60px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  margin-top: 5px; }
+
+.navbar-brand {
+  float: left;
+  font-size: 1.7em;
+  color: #fff !important;
+  letter-spacing: 1px;
+  padding: 10px;
+  font-weight: bold;
+  line-height: 1.7em;
+  margin-left: 20px; }
+
+.navbar-default .navbar-nav > li > a {
+  color: #ffffff !important;
+  padding: 10px;
+  line-height: 40px;
+  margin-right: 20px; }
+
+.footer {
+  background-color: #464745;
+  color: #FFFFFF;
+  height: 240px;
+  margin: 10px auto 20px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  padding: 20px 20px 20px 100px; }
+
+.home-image {
+  height: 200px; }
+
+.home-image > img {
+  padding-top: 50px; }
+
+.home-text {
+  padding-top: 50px;
+  height: 100px;
+  padding-right: 100px;
+  padding-left: 100px; }
+
+.home-buttons {
+  padding-top: 50px;
+  height: 100px; }
+
+.panel-default {
+  min-height: 500px;
+  margin: 0px;
+  border-radius: 10px; }
+
+.panel-default-profile {
+  margin: 0px;
+  border-radius: 10px; }
+
+.update-profile-button {
+  width: 100%;
+  padding-left: 100px;
+  padding-right: 100px; }
+
+.login-form {
+  padding: 60px; }
+
+.panel-default {
+  min-height: 500px;
+  margin: 0px;
+  border-radius: 10px; }
+
+.add-project-form {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 10px; }
+
+.add-project-form-list {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  height: 100px; }
+
+.added-project {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 10px; }
+
+textarea {
+  width: 100%; }
+
+.ql-editor {
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  padding: 10px; }
+
+.ql-toolbar {
+  padding-left: 30px; }
+
+.form-textarea {
+  display: block;
+  height: 200px; }
+
+.input-form {
+  margin-bottom: 20px; }
+
+.save-button {
+  width: 95%; }
+
+.project-list-h3 {
+  padding: 5px;
+  margin: 0px; }
+
+.project-list-h4 {
+  padding: 5px;
+  margin: 0px;
+  margin-top: 10px; }
+
+.list-checkbox > input[type=checkbox] {
+  margin: 30px; }
+
+.footer-button {
+  margin-top: 20px; }
+
+.profile-details-text {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+
+.profile-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  margin-top: 20px; }
+
+.list-item-image {
+  height: 60px;
+  width: 60px;
+  border-radius: 60px;
+  margin-top: 10px; }
+
+.hide-button {
+  margin-top: 10px; }
+
+.hidden {
+  display: none; }
+
+.logging-out {
+  padding-top: 100px; }
+
+.logout-screen {
+  background-color: #FFFFFF; }
